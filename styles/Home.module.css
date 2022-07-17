@@ -1,116 +1,69 @@
-.container {
-  padding: 0 2rem;
-}
-
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
+/* .container{
+  font-family: sans-serif;
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+} */
+.app {
+  display: flex;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #2C3639;
 }
 
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
+.board {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: repeat(6, 1fr);
+  height: 50vh;
+  width: 50%;
 }
 
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title,
-.description {
+.row h4 {
   text-align: center;
 }
 
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
+.board {
+  border: 4px solid black;
+  padding: 1rem;
+  text-transform: uppercase;
 }
 
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+.row {
+  color: lightgray;
+  font-size: 30px;
+  letter-spacing: 1rem;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  ;
+  grid-template-rows: 1fr
+    /* display: flex;
+  flex-direction: row;
+  justify-content: space-evenly; */
 }
 
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-}
-
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
+.container div:first-child {
   margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
 }
 
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
+.container div:nth-child(odd) {
+  /* background-color: coral; */
 }
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.container div:nth-child(even) {
+  /* background-color: lightgreen; */
+  background-color: #3F4E4F;
+}
+
+
+.row h4 {
+  /* color: red; */
 }
