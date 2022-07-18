@@ -1,6 +1,7 @@
 import styles from '../styles/Home.module.css'
 import { useEffect, useState, useRef } from "react";
 import { WORDS } from "./Words";
+import Keyboard from '../components/Keyboard';
 const ROW_NUM = 6;
 const WORD_LENGTH = 5;
 const TIMEOUT = 3000
@@ -29,16 +30,24 @@ export default function Home() {
   }, [userInput, currRow, randomWord])
 
   const handleKeydown = (e) => {
-    let key = e.key.toLowerCase()
+    let key;
+    if (e.key === undefined) {
+      let key2 = e.target.innerText.toLowerCase()
+      key = key2
+    }
+    else {
+      let key3 = e.key.toLowerCase()
+      key = key3
+    }
     let prevRow = currRow - 1
+    
     //fn que actualice userInput
 
     const keyCondition = /^[a-zA-Z]$/
-    let newWord;
     if (gameOver) return
     if (userInput !== randomWord) {
       if (attempts[prevRow] === randomWord) return
-      if (key == 'backspace') {
+      if (key === 'backspace') {
         setUserInput(prev => prev.slice(0, -1))
       }
       if (userInput.length < WORD_LENGTH && keyCondition.test(key)) {
@@ -128,6 +137,7 @@ export default function Home() {
         </p>
         <br></br>
         {currRow}
+        <Keyboard handleClick={handleKeydown}/>
       </div>
       {/* {randomWord} */}
     </div>

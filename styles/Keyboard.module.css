@@ -1,0 +1,69 @@
+/* .container {
+    background-color: bisque;
+    width: 100vw;
+    height: 100vh;
+    padding: 0 5rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+} */
+
+.keyboard {
+    color: red;
+    /* outline: 1px solid black; */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.keyrow {
+    color: blue;
+    /* outline: 1px solid blue; */
+    /* display: flex;
+    justify-content: space-between; */
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    /* grid-template-rows: 100px; */
+    align-items: start;
+    justify-items: center;
+    gap: 0.5rem;
+}
+
+.key {
+    color: gray;
+    outline: 1px solid gray;
+    padding: 0.25rem 1rem 1rem 0.5rem;
+    width: 100%;
+    height: 100%;
+    text-transform: uppercase;
+    background-color: lightgray;
+    border-radius: 4px;
+    
+}
+
+.keyboard :first-child :nth-child(2) {
+    /* color: red; */
+}
+
+.keyrow:nth-child(2) {
+    transform: translateX(2%);
+}
+.keyrow:nth-child(3) {
+    transform: translateX(5%);
+}
+
+.keyrow:nth-child(2) :last-child {
+    /* color: purple; */
+    grid-column: 10/12;
+}
+
+.key:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    font-weight: 600;
+    background-color: white;
+    color: rgba(63,64,63,1);
+    outline: 1px solid rgba(63,64,63,1);
+}
+
