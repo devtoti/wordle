@@ -40,7 +40,7 @@ export default function Home() {
       key = key3
     }
     let prevRow = currRow - 1
-    
+
     //fn que actualice userInput
 
     const keyCondition = /^[a-zA-Z]$/
@@ -130,13 +130,13 @@ export default function Home() {
 
       </div>
       {userInput}
-      <div className={styles.preview}>
-        {JSON.stringify(attempts, null, 2)}
+      <div className={styles.container2}>
+        {/* {JSON.stringify(attempts, null, 2)}
         <p>
           ARR LENGTH: {attempts.length}
         </p>
-        <br></br>
-        {currRow}
+        <br></br> */}
+        {/* {currRow} */}
         <Keyboard handleClick={handleKeydown}/>
       </div>
       {/* {randomWord} */}
@@ -206,7 +206,7 @@ const Cell = ({ wordToGuess, userChar, correctChar, rowChecked, setRightAnswer }
     if (wordToGuess.includes(userChar)) cell.backgroundColor = 'hsl(60, 100%, 78%)'
     if (userChar === correctChar) cell.backgroundColor = 'hsl(119, 62%, 63%)'
   }
-  console.log({ userChar, ref })
+  // console.log({ userChar, ref })
 
   return (
     <h4 ref={ref} className={styles.cell}>[{userChar}]</h4>
