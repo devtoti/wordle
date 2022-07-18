@@ -1,6 +1,6 @@
 import styles from '../styles/Home.module.css'
 import { useEffect, useState, useRef } from "react";
-import { WORDS } from "./Words";
+import { WORDS } from "../components/Words";
 import Keyboard from '../components/Keyboard';
 const ROW_NUM = 6;
 const WORD_LENGTH = 5;
