@@ -2,6 +2,7 @@ import styles from '../styles/Home.module.css'
 import { useEffect, useState, useRef } from "react";
 import { WORDS } from "../components/Words";
 import Keyboard from '../components/Keyboard';
+import {Howl, Howler} from 'howler'
 const ROW_NUM = 6;
 const WORD_LENGTH = 5;
 const TIMEOUT = 3000
@@ -14,6 +15,21 @@ export default function Home() {
   const [attempts, setAttempts] = useState(Array(ROW_NUM).fill(''))
   const [gameOver, setGameOver] = useState(false);
   const [rightAnswer, setRightAnswer] = useState(false);
+  const [keySound, setKeySound] = useState(null)
+    const [returnSound, setReturnSound] = useState(null)
+
+    useEffect(() => {
+        const sound1 = new Howl({
+            src: ['/mp3/key.mp3'],
+            volume: 0.3
+        });
+        const sound2 = new Howl({
+            src: ['/mp3/carriage-return.mp3'],
+            volume: 0.1
+        });
+        setKeySound(sound1)
+        setReturnSound(sound2)
+    }, [])
 
 
   useEffect(() => setRandomWord(WORDS[Math.floor(Math.random() * WORDS.length)]), [gameOver])
@@ -42,7 +58,7 @@ export default function Home() {
     let prevRow = currRow - 1
 
     //fn que actualice userInput
-
+    
     const keyCondition = /^[a-zA-Z]$/
     if (gameOver) return
     if (userInput !== randomWord) {
@@ -51,10 +67,12 @@ export default function Home() {
         setUserInput(prev => prev.slice(0, -1))
       }
       if (userInput.length < WORD_LENGTH && keyCondition.test(key)) {
+        keySound.play()
         setUserInput(prev => prev + key)
       }
     }
     if (userInput.length == WORD_LENGTH && key == 'enter') {
+      returnSound.play()
       setTimeout(() => {
         setCurrRow(row => row + 1)
         setUserInput("")
@@ -90,13 +108,22 @@ export default function Home() {
 
   return (
     <div className={styles.app}>
-      {chosenWord}
 
+        <div className={styles.wordle}>
+        <span id="a1">W</span>
+        <span id="2">O</span>
+        <span id="3">R</span>
+        <span id="4">D</span>
+        <span id="5">L</span>
+        <span id="6">E</span>
+        <h4>TRIBUTE</h4>
+        </div>
       <div className={styles.board}>
         {gameOver && !rightAnswer && <>
           <h1 className={styles.gameover}>GAME OVER
             <button type='button' onClick={(e) => resetGame(randomWord)}>PLAY AGAIN</button></h1>
           <h3>The right word was&nbsp;
+            <br/>
             <span>
               {randomWord}
             </span></h3>
@@ -129,7 +156,7 @@ export default function Home() {
         </>}
 
       </div>
-      {userInput}
+      {/* {userInput} */}
       <div className={styles.container2}>
         {/* {JSON.stringify(attempts, null, 2)}
         <p>
