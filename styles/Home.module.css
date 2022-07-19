@@ -175,7 +175,22 @@
 
 .container2 {
   position: absolute;
-  bottom: 5%;
+  bottom: 8%;
   margin-top: 5rem;
-  width: 80%;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+@media only screen and (min-width: 700px) {
+ 
+  .board {
+    /* max-width: 500px; */
+    width: clamp(500px, 500px + 5vw, 750px);
+  }
+
+  .container2 {
+    height: 100px;
+    width: 70%;
+    max-width: 600px;
+  }
 }
