@@ -2,7 +2,7 @@ import styles from '../styles/Home.module.css'
 import { useEffect, useState, useRef } from "react";
 import { WORDS } from "../components/Words";
 import Keyboard from '../components/Keyboard';
-import {Howl, Howler} from 'howler'
+import { Howl, Howler } from 'howler'
 const ROW_NUM = 6;
 const WORD_LENGTH = 5;
 const TIMEOUT = 2000
@@ -13,37 +13,38 @@ export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [currRow, setCurrRow] = useState(0)
   const [attempts, setAttempts] = useState(Array(ROW_NUM).fill(''))
-  const [gameOver, setGameOver] = useState(true);
-  const [rightAnswer, setRightAnswer] = useState(true);
+  const [gameOver, setGameOver] = useState(false);
+  const [rightAnswer, setRightAnswer] = useState(false);
   const [keySound, setKeySound] = useState(null)
-    const [returnSound, setReturnSound] = useState(null)
-
-    useEffect(() => {
-        const sound1 = new Howl({
-            src: ['/mp3/key.mp3'],
-            volume: 0.3
-        });
-        const sound2 = new Howl({
-            src: ['/mp3/carriage-return.mp3'],
-            volume: 0.1
-        });
-        setKeySound(sound1)
-        setReturnSound(sound2)
-    }, [])
-
+  const [returnSound, setReturnSound] = useState(null)
 
   useEffect(() => {
-  
-  setRandomWord(WORDS[Math.floor(Math.random() * WORDS.length)])
-  
-}, [resetGame])
+    const sound1 = new Howl({
+      src: ['/mp3/key.mp3'],
+      volume: 0.3
+    });
+    const sound2 = new Howl({
+      src: ['/mp3/carriage-return.mp3'],
+      volume: 0.1
+    });
+    setKeySound(sound1)
+    setReturnSound(sound2)
+  }, [])
 
-//   useEffect(() => {
-//   const gameOverReset = setTimeout(()=> 
-//   setRandomWord(WORDS[Math.floor(Math.random() * WORDS.length)]),TIMEOUT)
-//   return () => clearTimeout(gameOverReset)
-// }, [gameOver])
+  useEffect(() => {
+    setRandomWord(WORDS[Math.floor(Math.random() * WORDS.length)])
+  }, [])
 
+
+  const resetGame = (randomWord) => {
+
+    setUserInput("");
+    setCurrRow(0)
+    setAttempts(Array(ROW_NUM).fill(''))
+    setGameOver(false)
+    setRightAnswer(false)
+    setRandomWord(WORDS[Math.floor(Math.random() * WORDS.length)])
+  }
   useEffect(() => {
     window.addEventListener("keydown", handleKeydown);
     return () => window.removeEventListener("keydown", handleKeydown);
@@ -69,7 +70,7 @@ export default function Home() {
     let prevRow = currRow - 1
 
     //fn que actualice userInput
-    
+
     const keyCondition = /^[a-zA-Z]$/
     if (gameOver) return
     if (userInput !== randomWord) {
@@ -105,23 +106,10 @@ export default function Home() {
   }
 
 
-
-  const resetGame = (randomWord) => {
-    // seWORDS[Math.floor(Math.random() * WORDS.length)];
-    // console.log(randomWord)
-    setUserInput("");
-    setCurrRow(0)
-    setAttempts(Array(ROW_NUM).fill(''))
-    setGameOver(false)
-    setRightAnswer(false)
-    setRandomWord(WORDS[Math.floor(Math.random() * WORDS.length)])
-  }
-
-
   return (
     <div className={styles.app}>
 
-        <div className={styles.wordle}>
+      <div className={styles.wordle}>
         <span id="a1">W</span>
         <span id="2">O</span>
         <span id="3">R</span>
@@ -129,13 +117,13 @@ export default function Home() {
         <span id="5">L</span>
         <span id="6">E</span>
         <h4>TRIBUTE</h4>
-        </div>
+      </div>
       <div className={styles.board}>
         {gameOver && !rightAnswer && <>
           <h1 className={styles.gameover_wrong}>GAME OVER
             <button type='button' onClick={(e) => resetGame(randomWord)}>PLAY AGAIN</button></h1>
           <h3>The right word was&nbsp;
-            <br/>
+            <br />
             <span>
               {randomWord}
             </span></h3>
@@ -154,16 +142,16 @@ export default function Home() {
             rightAnswer={rightAnswer} />
         )}
 
-        {gameOver && rightAnswer && ( <>
-            <h1 className={styles.gameover_right}>GOOD JOB!
+        {gameOver && rightAnswer && (<>
+          <h1 className={styles.gameover_right}>GOOD JOB!
             <button type='button' onClick={(e) => resetGame(randomWord)}>PLAY AGAIN</button></h1>
           <h3>You guessed the word&nbsp;
-            <br/>
+            <br />
             <span>
               {randomWord}
             </span></h3>
         </>
-        
+
         )}
 
         {!gameOver && rightAnswer && <>
@@ -180,7 +168,7 @@ export default function Home() {
         </p>
         <br></br> */}
         {/* {currRow} */}
-        <Keyboard handleClick={handleKeydown}/>
+        <Keyboard handleClick={handleKeydown} />
       </div>
       {/* {randomWord} */}
     </div>
