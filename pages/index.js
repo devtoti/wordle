@@ -5,7 +5,7 @@ import Keyboard from '../components/Keyboard';
 import {Howl, Howler} from 'howler'
 const ROW_NUM = 6;
 const WORD_LENGTH = 5;
-const TIMEOUT = 3000
+const TIMEOUT = 2000
 
 export default function Home() {
   const chosenWord = WORDS[11];
@@ -13,8 +13,8 @@ export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [currRow, setCurrRow] = useState(0)
   const [attempts, setAttempts] = useState(Array(ROW_NUM).fill(''))
-  const [gameOver, setGameOver] = useState(false);
-  const [rightAnswer, setRightAnswer] = useState(false);
+  const [gameOver, setGameOver] = useState(true);
+  const [rightAnswer, setRightAnswer] = useState(true);
   const [keySound, setKeySound] = useState(null)
     const [returnSound, setReturnSound] = useState(null)
 
@@ -32,7 +32,18 @@ export default function Home() {
     }, [])
 
 
-  useEffect(() => setRandomWord(WORDS[Math.floor(Math.random() * WORDS.length)]), [gameOver])
+  useEffect(() => {
+  
+  setRandomWord(WORDS[Math.floor(Math.random() * WORDS.length)])
+  
+}, [resetGame])
+
+//   useEffect(() => {
+//   const gameOverReset = setTimeout(()=> 
+//   setRandomWord(WORDS[Math.floor(Math.random() * WORDS.length)]),TIMEOUT)
+//   return () => clearTimeout(gameOverReset)
+// }, [gameOver])
+
   useEffect(() => {
     window.addEventListener("keydown", handleKeydown);
     return () => window.removeEventListener("keydown", handleKeydown);
@@ -103,6 +114,7 @@ export default function Home() {
     setAttempts(Array(ROW_NUM).fill(''))
     setGameOver(false)
     setRightAnswer(false)
+    setRandomWord(WORDS[Math.floor(Math.random() * WORDS.length)])
   }
 
 
@@ -120,7 +132,7 @@ export default function Home() {
         </div>
       <div className={styles.board}>
         {gameOver && !rightAnswer && <>
-          <h1 className={styles.gameover}>GAME OVER
+          <h1 className={styles.gameover_wrong}>GAME OVER
             <button type='button' onClick={(e) => resetGame(randomWord)}>PLAY AGAIN</button></h1>
           <h3>The right word was&nbsp;
             <br/>
@@ -142,12 +154,16 @@ export default function Home() {
             rightAnswer={rightAnswer} />
         )}
 
-        {gameOver && rightAnswer && (
-          <div className={styles.gameover}>
-            <h1>GOOD JOB
-            </h1>
-            <button type='button' onClick={(e) => resetGame(randomWord)}>PLAY AGAIN?</button>
-          </div>
+        {gameOver && rightAnswer && ( <>
+            <h1 className={styles.gameover_right}>GOOD JOB!
+            <button type='button' onClick={(e) => resetGame(randomWord)}>PLAY AGAIN</button></h1>
+          <h3>You guessed the word&nbsp;
+            <br/>
+            <span>
+              {randomWord}
+            </span></h3>
+        </>
+        
         )}
 
         {!gameOver && rightAnswer && <>

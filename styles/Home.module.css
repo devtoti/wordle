@@ -107,7 +107,7 @@
   background-color: #3F4E4F;
 }
 
-.gameover {
+.gameover_right, .gameover_wrong {
   grid-area: 1/1/7/5;
   display: flex;
   flex-direction: column;
@@ -117,7 +117,7 @@
   color: gray;
 }
 
-.gameover button {
+.gameover_right button, .gameover_wrong button {
   all: unset;
   border: 3px solid gray;
   font-size: 1rem;
@@ -129,13 +129,22 @@
   font-weight: 700;
 }
 
-.gameover button:hover {
+.gameover_right button:hover, .gameover_wrong button:hover {
   border: 3px solid white;
   font-size: 1.1rem;
   color: white;
 
 }
 
+.gameover_right {
+  color: rgb(87, 204, 87);
+  /* background-color: green; */
+}
+.gameover_right button {
+  color: rgb(87, 204, 87);
+  border: 3px solid rgb(87, 204, 87);
+
+}
 .board h3 {
   color: gray;
   animation: dance 2.5s linear infinite;
